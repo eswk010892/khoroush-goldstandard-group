@@ -2,8 +2,14 @@ import { Award, Users, Target, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const About = () => {
+  const storySection = useScrollAnimation();
+  const valuesSection = useScrollAnimation();
+  const teamSection = useScrollAnimation();
+  const missionSection = useScrollAnimation();
+  
   const values = [
     {
       icon: Award,
@@ -51,10 +57,10 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-24 bg-background">
+      <section ref={storySection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 animate-fade-in">
+            <div className={`space-y-6 transition-all duration-700 ${storySection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Our Story
               </h2>
@@ -74,9 +80,13 @@ const About = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-2 gap-6 animate-scale-in">
+            <div className="grid grid-cols-2 gap-6">
               {achievements.map((item, index) => (
-                <Card key={index} className="bg-card border-primary/20 hover:border-primary transition-all duration-300">
+                <Card 
+                  key={index} 
+                  className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 ${storySection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
                   <CardContent className="p-8 text-center">
                     <div className="text-5xl font-bold text-primary mb-2">{item.number}</div>
                     <div className="text-muted-foreground">{item.label}</div>
@@ -89,9 +99,9 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={valuesSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className={`text-center mb-16 transition-all duration-700 ${valuesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Our Core Values
             </h2>
@@ -104,7 +114,8 @@ const About = () => {
             {values.map((value, index) => (
               <Card
                 key={index}
-                className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold group"
+                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold group ${valuesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-8 space-y-4 text-center">
                   <div className="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
@@ -124,9 +135,9 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-24 bg-background">
+      <section ref={teamSection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-700 ${teamSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Leadership & Expertise
             </h2>
@@ -135,7 +146,7 @@ const About = () => {
             </p>
           </div>
           
-          <Card className="bg-card border-primary/20 max-w-4xl mx-auto">
+          <Card className={`bg-card border-primary/20 max-w-4xl mx-auto transition-all duration-700 ${teamSection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <CardContent className="p-12 text-center space-y-6">
               <div className="w-32 h-32 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
                 <Users size={64} className="text-primary" />
@@ -156,9 +167,9 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={missionSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-card border-primary/20 max-w-4xl mx-auto">
+          <Card className={`bg-card border-primary/20 max-w-4xl mx-auto transition-all duration-700 ${missionSection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <CardContent className="p-12 text-center space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Our Mission

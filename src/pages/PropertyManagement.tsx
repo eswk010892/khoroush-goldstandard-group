@@ -4,9 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import heroImage from "@/assets/hero-management.jpg";
 
 const PropertyManagement = () => {
+  const servicesSection = useScrollAnimation();
+  const benefitsSection = useScrollAnimation();
+  const processSection = useScrollAnimation();
+  const ctaSection = useScrollAnimation();
+  
   const services = [
     {
       icon: Users,
@@ -59,9 +65,9 @@ const PropertyManagement = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={servicesSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className={`text-center mb-16 transition-all duration-700 ${servicesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Comprehensive Management Services
             </h2>
@@ -74,7 +80,8 @@ const PropertyManagement = () => {
             {services.map((service, index) => (
               <Card
                 key={index}
-                className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold group"
+                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold group ${servicesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-8 space-y-4 text-center">
                   <div className="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
@@ -94,10 +101,10 @@ const PropertyManagement = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-24 bg-background">
+      <section ref={benefitsSection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className={`space-y-6 transition-all duration-700 ${benefitsSection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Peace of Mind for Property Owners
               </h2>
@@ -123,7 +130,7 @@ const PropertyManagement = () => {
               </ul>
             </div>
             
-            <div className="space-y-6">
+            <div className={`space-y-6 transition-all duration-700 ${benefitsSection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <Card className="bg-card border-primary/20">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold text-foreground mb-4">Residential Management</h3>
@@ -159,9 +166,9 @@ const PropertyManagement = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={processSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-700 ${processSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               How We Work
             </h2>
@@ -188,7 +195,11 @@ const PropertyManagement = () => {
                 description: "Day-to-day operations, maintenance, and transparent reporting." 
               },
             ].map((item, index) => (
-              <Card key={index} className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold">
+              <Card 
+                key={index} 
+                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold ${processSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
                 <CardContent className="p-10 text-center space-y-4">
                   <div className="text-6xl font-bold text-primary/30">{item.step}</div>
                   <h3 className="text-2xl font-bold text-foreground">{item.title}</h3>
@@ -201,9 +212,9 @@ const PropertyManagement = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-background">
+      <section ref={ctaSection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-gradient-gold border-none">
+          <Card className={`bg-gradient-gold border-none transition-all duration-700 ${ctaSection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <CardContent className="p-12 md:p-16 text-center space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
                 Let Us Manage Your Properties

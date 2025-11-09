@@ -4,9 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import heroImage from "@/assets/hero-construction.jpg";
 
 const Construction = () => {
+  const servicesSection = useScrollAnimation();
+  const timelineSection = useScrollAnimation();
+  const whyChoose = useScrollAnimation();
+  
   const services = [
     {
       icon: Building,
@@ -66,9 +71,9 @@ const Construction = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={servicesSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className={`text-center mb-16 transition-all duration-700 ${servicesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Construction Excellence
             </h2>
@@ -81,7 +86,8 @@ const Construction = () => {
             {services.map((service, index) => (
               <Card
                 key={index}
-                className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold group"
+                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold group ${servicesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-8 space-y-4 text-center">
                   <div className="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
@@ -101,9 +107,9 @@ const Construction = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-24 bg-background">
+      <section ref={timelineSection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-700 ${timelineSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Our Construction Process
             </h2>
@@ -118,7 +124,7 @@ const Construction = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {timeline.map((item, index) => (
-                <div key={index} className="relative animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div key={index} className={`relative transition-all duration-700 ${timelineSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 150}ms` }}>
                   <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold">
                     <CardContent className="p-8 text-center space-y-4">
                       <div className="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-primary text-primary-foreground text-2xl font-bold">
@@ -136,10 +142,10 @@ const Construction = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={whyChoose.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className={`space-y-6 transition-all duration-700 ${whyChoose.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Why Choose Khoroush Construction?
               </h2>
@@ -164,7 +170,7 @@ const Construction = () => {
               </ul>
             </div>
             
-            <Card className="bg-card border-primary/20">
+            <Card className={`bg-card border-primary/20 transition-all duration-700 ${whyChoose.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <CardContent className="p-12 space-y-6">
                 <h3 className="text-3xl font-bold text-foreground">Ready to Build Your Vision?</h3>
                 <p className="text-muted-foreground text-lg">

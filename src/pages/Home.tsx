@@ -5,9 +5,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import heroImage from "@/assets/hero-home.jpg";
 
 const Home = () => {
+  const pillars = useScrollAnimation();
+  const whyChoose = useScrollAnimation();
+  const stats = useScrollAnimation();
+  const testimonialsSection = useScrollAnimation();
+  const cta = useScrollAnimation();
+  
   const services = [
     {
       icon: Building2,
@@ -90,9 +97,9 @@ const Home = () => {
       </section>
 
       {/* Three Pillars Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={pillars.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className={`text-center mb-16 transition-all duration-700 ${pillars.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Three Pillars. One Vision.
             </h2>
@@ -105,8 +112,8 @@ const Home = () => {
             {services.map((service, index) => (
               <div
                 key={service.title}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`transition-all duration-700 ${pillars.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <ServiceCard {...service} />
               </div>
@@ -116,10 +123,10 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-24 bg-background">
+      <section ref={whyChoose.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 animate-fade-in">
+            <div className={`space-y-6 transition-all duration-700 ${whyChoose.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Why Choose Khoroush?
               </h2>
@@ -144,40 +151,33 @@ const Home = () => {
               </ul>
             </div>
             
-            <div className="grid grid-cols-2 gap-6 animate-scale-in">
-              <Card className="bg-card border-primary/20">
-                <CardContent className="p-8 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">500+</div>
-                  <div className="text-muted-foreground">Projects Completed</div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card border-primary/20">
-                <CardContent className="p-8 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">98%</div>
-                  <div className="text-muted-foreground">Client Satisfaction</div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card border-primary/20">
-                <CardContent className="p-8 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">25+</div>
-                  <div className="text-muted-foreground">Years Experience</div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card border-primary/20">
-                <CardContent className="p-8 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">$500M+</div>
-                  <div className="text-muted-foreground">Portfolio Value</div>
-                </CardContent>
-              </Card>
+            <div ref={stats.ref} className="grid grid-cols-2 gap-6">
+              {[
+                { number: "500+", label: "Projects Completed" },
+                { number: "98%", label: "Client Satisfaction" },
+                { number: "25+", label: "Years Experience" },
+                { number: "$500M+", label: "Portfolio Value" },
+              ].map((stat, index) => (
+                <Card 
+                  key={index}
+                  className={`bg-card border-primary/20 transition-all duration-700 ${stats.isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-8 text-center">
+                    <div className="text-5xl font-bold text-primary mb-2">{stat.number}</div>
+                    <div className="text-muted-foreground">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-gradient-dark">
+      <section ref={testimonialsSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className={`text-center mb-16 transition-all duration-700 ${testimonialsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Client Success Stories
             </h2>
@@ -190,7 +190,8 @@ const Home = () => {
             {testimonials.map((testimonial, index) => (
               <Card
                 key={index}
-                className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-gold"
+                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold ${testimonialsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <CardContent className="p-8 space-y-4">
                   <p className="text-muted-foreground italic leading-relaxed">
@@ -208,9 +209,9 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-background">
+      <section ref={cta.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-gradient-gold border-none">
+          <Card className={`bg-gradient-gold border-none transition-all duration-700 ${cta.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <CardContent className="p-12 md:p-16 text-center space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
                 Ready to Start Your Project?

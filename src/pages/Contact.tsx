@@ -6,11 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 const Contact = () => {
   const { toast } = useToast();
+  const contactSection = useScrollAnimation();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,11 +52,11 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 bg-background">
+      <section ref={contactSection.ref} className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div className="space-y-8 animate-fade-in">
+            <div className={`space-y-8 transition-all duration-700 ${contactSection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <div>
                 <h2 className="text-4xl font-bold text-foreground mb-6">
                   Contact Information
@@ -113,7 +116,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <Card className="bg-card border-primary/20 animate-scale-in">
+            <Card className={`bg-card border-primary/20 transition-all duration-700 ${contactSection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <CardContent className="p-8">
                 <h3 className="text-3xl font-bold text-foreground mb-6">Send Us a Message</h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
