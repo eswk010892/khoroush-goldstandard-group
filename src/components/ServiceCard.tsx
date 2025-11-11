@@ -12,7 +12,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ icon: Icon, title, description, link }: ServiceCardProps) => {
   return (
-    <Card className="group bg-card border-primary/20 hover:border-primary transition-all duration-500 hover:shadow-gold overflow-hidden">
+    <Card className="group h-full bg-card border-primary/20 hover:border-primary transition-all duration-500 hover:shadow-gold overflow-hidden">
       <CardContent className="p-8 space-y-6">
         <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
           <Icon size={32} />
