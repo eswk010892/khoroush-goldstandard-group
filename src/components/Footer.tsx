@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="bg-card border-t border-primary/20">
+  return <footer className="bg-card border-t border-primary/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -19,26 +17,17 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-foreground">Services</h4>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/real-estate"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link to="/real-estate" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Real Estate
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/construction"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link to="/construction" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Construction
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/property-management"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link to="/property-management" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Property Management
                 </Link>
               </li>
@@ -50,18 +39,12 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-foreground">Company</h4>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/about"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Contact
                 </Link>
               </li>
@@ -82,7 +65,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start space-x-2 text-sm text-muted-foreground">
                 <MapPin size={16} className="text-primary mt-0.5" />
-                <span>Toronto, Ontario, Canada</span>
+                <span>Montreal, Quebec, Canada</span>
               </li>
             </ul>
           </div>
@@ -94,8 +77,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

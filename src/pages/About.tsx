@@ -3,53 +3,48 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
 const About = () => {
   const storySection = useScrollAnimation();
   const valuesSection = useScrollAnimation();
   const teamSection = useScrollAnimation();
   const missionSection = useScrollAnimation();
-  
-  const values = [
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "We set the highest standards in everything we do, from property transactions to construction quality.",
-    },
-    {
-      icon: Users,
-      title: "Integrity",
-      description: "Trust is earned through transparency, honesty, and consistent delivery on our promises.",
-    },
-    {
-      icon: Target,
-      title: "Innovation",
-      description: "We embrace new technologies and methodologies to stay ahead in a dynamic market.",
-    },
-    {
-      icon: Heart,
-      title: "Client-Centric",
-      description: "Your success is our success. We build lasting relationships, not just transactions.",
-    },
-  ];
-
-  const achievements = [
-    { number: "500+", label: "Projects Completed" },
-    { number: "25+", label: "Years Experience" },
-    { number: "$500M+", label: "Portfolio Value" },
-    { number: "98%", label: "Client Satisfaction" },
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const values = [{
+    icon: Award,
+    title: "Excellence",
+    description: "We set the highest standards in everything we do, from property transactions to construction quality."
+  }, {
+    icon: Users,
+    title: "Integrity",
+    description: "Trust is earned through transparency, honesty, and consistent delivery on our promises."
+  }, {
+    icon: Target,
+    title: "Innovation",
+    description: "We embrace new technologies and methodologies to stay ahead in a dynamic market."
+  }, {
+    icon: Heart,
+    title: "Client-Centric",
+    description: "Your success is our success. We build lasting relationships, not just transactions."
+  }];
+  const achievements = [{
+    number: "500+",
+    label: "Projects Completed"
+  }, {
+    number: "25+",
+    label: "Years Experience"
+  }, {
+    number: "$500M+",
+    label: "Portfolio Value"
+  }, {
+    number: "98%",
+    label: "Client Satisfaction"
+  }];
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            About Khoroush
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">About AK Global</h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
             Your integrated property expert across Canada.
           </p>
@@ -64,11 +59,7 @@ const About = () => {
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">
                 Our Story
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Khoroush was founded on a simple belief: property services should be seamless, integrated, 
-                and built on trust. What started as a small real estate practice has evolved into a 
-                full-service property brand serving clients across Canada.
-              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">AK Global was founded on a simple belief: property services should be seamless, integrated, and built on trust. What started as a small real estate practice has evolved into a full-service property brand serving clients across Canada.</p>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Today, we combine real estate expertise, construction excellence, and professional property 
                 management under one roof. This integration allows us to deliver unmatched value, coordination, 
@@ -81,18 +72,14 @@ const About = () => {
             </div>
             
             <div className="grid grid-cols-2 gap-6">
-              {achievements.map((item, index) => (
-                <Card 
-                  key={index} 
-                  className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 ${storySection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
+              {achievements.map((item, index) => <Card key={index} className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 ${storySection.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`} style={{
+              transitionDelay: `${index * 100}ms`
+            }}>
                   <CardContent className="p-8 text-center">
                     <div className="text-5xl font-bold text-primary mb-2">{item.number}</div>
                     <div className="text-muted-foreground">{item.label}</div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </div>
@@ -111,12 +98,9 @@ const About = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <Card
-                key={index}
-                className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold group ${valuesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
+            {values.map((value, index) => <Card key={index} className={`bg-card border-primary/20 hover:border-primary transition-all duration-700 hover:shadow-gold group ${valuesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{
+            transitionDelay: `${index * 100}ms`
+          }}>
                 <CardContent className="p-8 space-y-4 text-center">
                   <div className="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                     <value.icon size={32} />
@@ -128,8 +112,7 @@ const About = () => {
                     {value.description}
                   </p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -188,8 +171,6 @@ const About = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
