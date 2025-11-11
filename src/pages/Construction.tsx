@@ -55,10 +55,10 @@ const Construction = () => {
           }}
         />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Built on Precision. Delivered with Integrity.
           </h1>
-          <p className="text-xl md:text-2xl text-foreground/90 max-w-3xl mx-auto mb-8">
+          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
             Transforming architectural visions into stunning reality across Canada.
           </p>
           <Link to="/contact">
