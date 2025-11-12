@@ -147,6 +147,7 @@ const Construction = () => {
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <ConstructionProjectCard
+                    id={project.id}
                     title={project.title}
                     description={project.description}
                     projectType={project.project_type}
@@ -154,7 +155,7 @@ const Construction = () => {
                     completionDate={project.completion_date}
                     budgetRange={project.budget_range}
                     squareFeet={project.square_feet}
-                    imageUrl={project.image_url}
+                    imageUrls={(project as any).image_urls}
                     status={project.status}
                     featured={project.featured}
                   />

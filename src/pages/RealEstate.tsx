@@ -140,6 +140,7 @@ const RealEstate = () => {
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <RealEstateCard
+                    id={listing.id}
                     title={listing.title}
                     description={listing.description}
                     price={listing.price}
@@ -148,7 +149,7 @@ const RealEstate = () => {
                     bedrooms={listing.bedrooms}
                     bathrooms={listing.bathrooms}
                     squareFeet={listing.square_feet}
-                    imageUrl={listing.image_url}
+                    imageUrls={(listing as any).image_urls}
                     status={listing.status}
                     featured={listing.featured}
                   />

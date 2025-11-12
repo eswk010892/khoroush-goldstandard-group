@@ -75,8 +75,8 @@ const ConstructionDetail = () => {
           <div className="space-y-4">
             <Carousel className="w-full">
               <CarouselContent>
-                {project.image_urls && project.image_urls.length > 0 ? (
-                  project.image_urls.map((imageUrl: string, index: number) => (
+                {(project as any).image_urls && (project as any).image_urls.length > 0 ? (
+                  (project as any).image_urls.map((imageUrl: string, index: number) => (
                     <CarouselItem key={index}>
                       <div className="relative h-[500px] rounded-lg overflow-hidden">
                         <img
@@ -95,7 +95,7 @@ const ConstructionDetail = () => {
                   </CarouselItem>
                 )}
               </CarouselContent>
-              {project.image_urls && project.image_urls.length > 1 && (
+              {(project as any).image_urls && (project as any).image_urls.length > 1 && (
                 <>
                   <CarouselPrevious />
                   <CarouselNext />

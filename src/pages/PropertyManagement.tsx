@@ -141,6 +141,7 @@ const PropertyManagement = () => {
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <ManagedPropertyCard
+                    id={property.id}
                     title={property.title}
                     description={property.description}
                     propertyType={property.property_type}
@@ -148,7 +149,7 @@ const PropertyManagement = () => {
                     units={property.units}
                     monthlyRent={property.monthly_rent}
                     squareFeet={property.square_feet}
-                    imageUrl={property.image_url}
+                    imageUrls={(property as any).image_urls}
                     managementStatus={property.management_status}
                     featured={property.featured}
                   />

@@ -1,8 +1,17 @@
 import { MapPin, Bed, Bath, Square, Tag } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface RealEstateCardProps {
+  id: string;
   title: string;
   description: string;
   price: number;
@@ -11,12 +20,13 @@ interface RealEstateCardProps {
   bedrooms?: number;
   bathrooms?: number;
   squareFeet?: number;
-  imageUrl?: string;
+  imageUrls?: string[];
   status: string;
   featured: boolean;
 }
 
 const RealEstateCard = ({
+  id,
   title,
   description,
   price,
@@ -25,33 +35,50 @@ const RealEstateCard = ({
   bedrooms,
   bathrooms,
   squareFeet,
-  imageUrl,
+  imageUrls,
   status,
   featured,
 }: RealEstateCardProps) => {
   return (
-    <Card className="group h-full bg-card border-primary/20 hover:border-primary transition-all duration-500 hover:shadow-gold overflow-hidden">
-      {imageUrl && (
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          {featured && (
-            <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
-              Featured
+    <Link to={`/real-estate/${id}`} className="block h-full">
+      <Card className="group h-full bg-card border-primary/20 hover:border-primary transition-all duration-500 hover:shadow-gold overflow-hidden cursor-pointer">
+        {imageUrls && imageUrls.length > 0 && (
+          <div className="relative">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {imageUrls.map((imageUrl: string, index: number) => (
+                  <CarouselItem key={index}>
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={imageUrl}
+                        alt={`${title} - Image ${index + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {imageUrls.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </>
+              )}
+            </Carousel>
+            {featured && (
+              <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground z-10">
+                Featured
+              </Badge>
+            )}
+            <Badge 
+              className="absolute top-4 left-4 z-10"
+              variant={status === 'available' ? 'default' : status === 'pending' ? 'secondary' : 'outline'}
+            >
+              {status}
             </Badge>
-          )}
-          <Badge 
-            className="absolute top-4 left-4"
-            variant={status === 'available' ? 'default' : status === 'pending' ? 'secondary' : 'outline'}
-          >
-            {status}
-          </Badge>
-        </div>
-      )}
-      <CardContent className="p-6 space-y-4">
+          </div>
+        )}
+        <CardContent className="p-6 space-y-4">
         <div className="space-y-2">
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
@@ -96,8 +123,9 @@ const RealEstateCard = ({
             ${price.toLocaleString()}
           </span>
         </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
 

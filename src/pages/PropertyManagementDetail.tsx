@@ -75,8 +75,8 @@ const PropertyManagementDetail = () => {
           <div className="space-y-4">
             <Carousel className="w-full">
               <CarouselContent>
-                {property.image_urls && property.image_urls.length > 0 ? (
-                  property.image_urls.map((imageUrl: string, index: number) => (
+                {(property as any).image_urls && (property as any).image_urls.length > 0 ? (
+                  (property as any).image_urls.map((imageUrl: string, index: number) => (
                     <CarouselItem key={index}>
                       <div className="relative h-[500px] rounded-lg overflow-hidden">
                         <img
@@ -95,7 +95,7 @@ const PropertyManagementDetail = () => {
                   </CarouselItem>
                 )}
               </CarouselContent>
-              {property.image_urls && property.image_urls.length > 1 && (
+              {(property as any).image_urls && (property as any).image_urls.length > 1 && (
                 <>
                   <CarouselPrevious />
                   <CarouselNext />
