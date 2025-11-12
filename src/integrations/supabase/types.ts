@@ -14,7 +14,153 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      construction_projects: {
+        Row: {
+          budget_range: string | null
+          completion_date: string | null
+          created_at: string
+          description: string
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          location: string
+          project_type: string
+          square_feet: number | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          budget_range?: string | null
+          completion_date?: string | null
+          created_at?: string
+          description: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location: string
+          project_type: string
+          square_feet?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          budget_range?: string | null
+          completion_date?: string | null
+          created_at?: string
+          description?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location?: string
+          project_type?: string
+          square_feet?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      managed_properties: {
+        Row: {
+          created_at: string
+          description: string
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          location: string
+          management_status: string | null
+          monthly_rent: number | null
+          property_type: string
+          square_feet: number | null
+          title: string
+          units: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location: string
+          management_status?: string | null
+          monthly_rent?: number | null
+          property_type: string
+          square_feet?: number | null
+          title: string
+          units?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location?: string
+          management_status?: string | null
+          monthly_rent?: number | null
+          property_type?: string
+          square_feet?: number | null
+          title?: string
+          units?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      real_estate_listings: {
+        Row: {
+          bathrooms: number | null
+          bedrooms: number | null
+          created_at: string
+          description: string
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          location: string
+          price: number
+          property_type: string
+          square_feet: number | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location: string
+          price: number
+          property_type: string
+          square_feet?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          description?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          location?: string
+          price?: number
+          property_type?: string
+          square_feet?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

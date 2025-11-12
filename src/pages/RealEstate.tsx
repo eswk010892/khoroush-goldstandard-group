@@ -5,12 +5,30 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+import RealEstateCard from "@/components/RealEstateCard";
 import heroImage from "@/assets/hero-realestate.jpg";
 
 const RealEstate = () => {
   const servicesSection = useScrollAnimation();
+  const listingsSection = useScrollAnimation();
   const processSection = useScrollAnimation();
   const whyChoose = useScrollAnimation();
+
+  const { data: listings, isLoading } = useQuery({
+    queryKey: ['real-estate-listings'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('real_estate_listings')
+        .select('*')
+        .order('featured', { ascending: false })
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
   
   const services = [
     {
@@ -99,8 +117,54 @@ const RealEstate = () => {
         </div>
       </section>
 
+      {/* Listings Section */}
+      <section ref={listingsSection.ref} className="py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-16 transition-all duration-700 ${listingsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Featured Listings
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Explore our current property offerings across Canada.
+            </p>
+          </div>
+          
+          {isLoading ? (
+            <div className="text-center text-muted-foreground">Loading listings...</div>
+          ) : listings && listings.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {listings.map((listing, index) => (
+                <div
+                  key={listing.id}
+                  className={`transition-all duration-700 ${listingsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <RealEstateCard
+                    title={listing.title}
+                    description={listing.description}
+                    price={listing.price}
+                    location={listing.location}
+                    propertyType={listing.property_type}
+                    bedrooms={listing.bedrooms}
+                    bathrooms={listing.bathrooms}
+                    squareFeet={listing.square_feet}
+                    imageUrl={listing.image_url}
+                    status={listing.status}
+                    featured={listing.featured}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground">
+              No listings available at the moment. Check back soon!
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Process Section */}
-      <section ref={processSection.ref} className="py-24 bg-background">
+      <section ref={processSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 transition-all duration-700 ${processSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

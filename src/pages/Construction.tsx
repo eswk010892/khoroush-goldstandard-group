@@ -5,12 +5,30 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+import ConstructionProjectCard from "@/components/ConstructionProjectCard";
 import heroImage from "@/assets/hero-construction.jpg";
 
 const Construction = () => {
   const servicesSection = useScrollAnimation();
+  const projectsSection = useScrollAnimation();
   const timelineSection = useScrollAnimation();
   const whyChoose = useScrollAnimation();
+
+  const { data: projects, isLoading } = useQuery({
+    queryKey: ['construction-projects'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('construction_projects')
+        .select('*')
+        .order('featured', { ascending: false })
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
   
   const services = [
     {
@@ -106,8 +124,53 @@ const Construction = () => {
         </div>
       </section>
 
+      {/* Projects Section */}
+      <section ref={projectsSection.ref} className="py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-16 transition-all duration-700 ${projectsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Our Projects
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Showcasing our commitment to quality and excellence.
+            </p>
+          </div>
+          
+          {isLoading ? (
+            <div className="text-center text-muted-foreground">Loading projects...</div>
+          ) : projects && projects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <div
+                  key={project.id}
+                  className={`transition-all duration-700 ${projectsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <ConstructionProjectCard
+                    title={project.title}
+                    description={project.description}
+                    projectType={project.project_type}
+                    location={project.location}
+                    completionDate={project.completion_date}
+                    budgetRange={project.budget_range}
+                    squareFeet={project.square_feet}
+                    imageUrl={project.image_url}
+                    status={project.status}
+                    featured={project.featured}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground">
+              No projects available at the moment. Check back soon!
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Timeline Section */}
-      <section ref={timelineSection.ref} className="py-24 bg-background">
+      <section ref={timelineSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 transition-all duration-700 ${timelineSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

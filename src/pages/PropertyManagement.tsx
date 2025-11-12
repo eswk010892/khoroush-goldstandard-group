@@ -5,13 +5,31 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+import ManagedPropertyCard from "@/components/ManagedPropertyCard";
 import heroImage from "@/assets/hero-management.jpg";
 
 const PropertyManagement = () => {
   const servicesSection = useScrollAnimation();
+  const propertiesSection = useScrollAnimation();
   const benefitsSection = useScrollAnimation();
   const processSection = useScrollAnimation();
   const ctaSection = useScrollAnimation();
+
+  const { data: properties, isLoading } = useQuery({
+    queryKey: ['managed-properties'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('managed_properties')
+        .select('*')
+        .order('featured', { ascending: false })
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
   
   const services = [
     {
@@ -100,8 +118,53 @@ const PropertyManagement = () => {
         </div>
       </section>
 
+      {/* Properties Section */}
+      <section ref={propertiesSection.ref} className="py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center mb-16 transition-all duration-700 ${propertiesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Properties Under Management
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              See the diverse portfolio of properties we professionally manage.
+            </p>
+          </div>
+          
+          {isLoading ? (
+            <div className="text-center text-muted-foreground">Loading properties...</div>
+          ) : properties && properties.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {properties.map((property, index) => (
+                <div
+                  key={property.id}
+                  className={`transition-all duration-700 ${propertiesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <ManagedPropertyCard
+                    title={property.title}
+                    description={property.description}
+                    propertyType={property.property_type}
+                    location={property.location}
+                    units={property.units}
+                    monthlyRent={property.monthly_rent}
+                    squareFeet={property.square_feet}
+                    imageUrl={property.image_url}
+                    managementStatus={property.management_status}
+                    featured={property.featured}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-muted-foreground">
+              No properties available at the moment. Check back soon!
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Benefits Section */}
-      <section ref={benefitsSection.ref} className="py-24 bg-background">
+      <section ref={benefitsSection.ref} className="py-24 bg-gradient-dark">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className={`space-y-6 transition-all duration-700 ${benefitsSection.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
