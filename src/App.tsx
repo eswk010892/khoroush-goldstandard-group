@@ -6,8 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Home from "./pages/Home";
 import RealEstate from "./pages/RealEstate";
+import RealEstateDetail from "./pages/RealEstateDetail";
 import Construction from "./pages/Construction";
+import ConstructionDetail from "./pages/ConstructionDetail";
 import PropertyManagement from "./pages/PropertyManagement";
+import PropertyManagementDetail from "./pages/PropertyManagementDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -24,8 +27,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/real-estate" element={<RealEstate />} />
+            <Route path="/real-estate/:id" element={<RealEstateDetail />} />
             <Route path="/construction" element={<Construction />} />
+            <Route path="/construction/:id" element={<ConstructionDetail />} />
             <Route path="/property-management" element={<PropertyManagement />} />
+            <Route path="/property-management/:id" element={<PropertyManagementDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
