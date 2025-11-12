@@ -135,11 +135,7 @@ const About = () => {
                 <Users size={64} className="text-primary" />
               </div>
               <h3 className="text-3xl font-bold text-foreground">Our Team</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                At Khoroush, our success is driven by a diverse team of licensed real estate professionals, 
-                experienced builders, certified property managers, and dedicated support staff. Together, 
-                we deliver comprehensive solutions tailored to each client's unique needs.
-              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">At AK Globa, our success is driven by a diverse team of licensed real estate professionals, experienced builders, certified property managers, and dedicated support staff. Together, we deliver comprehensive solutions tailored to each client's unique needs.</p>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Every team member shares our commitment to excellence, integrity, and client satisfaction — 
                 values that have made Khoroush a trusted name in Canadian property services.
