@@ -37,14 +37,15 @@ const ManagedPropertyCard = ({
   managementStatus,
   featured,
 }: ManagedPropertyCardProps) => {
+  const normalizedImageUrls = (imageUrls || []).map((u) => u.replace(/^\/src\/assets\/listings\//, '/listings/'));
   return (
     <Link to={`/property-management/${id}`} className="block h-full">
       <Card className="group h-full bg-card border-primary/20 hover:border-primary transition-all duration-500 hover:shadow-gold overflow-hidden cursor-pointer">
-        {imageUrls && imageUrls.length > 0 && (
+        {normalizedImageUrls.length > 0 && (
           <div className="relative">
             <Carousel className="w-full">
               <CarouselContent>
-                {imageUrls.map((imageUrl: string, index: number) => (
+                {normalizedImageUrls.map((imageUrl: string, index: number) => (
                   <CarouselItem key={index}>
                     <div className="relative h-48 overflow-hidden">
                       <img
@@ -56,7 +57,7 @@ const ManagedPropertyCard = ({
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              {imageUrls.length > 1 && (
+              {normalizedImageUrls.length > 1 && (
                 <>
                   <CarouselPrevious className="left-2" />
                   <CarouselNext className="right-2" />

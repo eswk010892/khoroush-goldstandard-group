@@ -58,6 +58,8 @@ const RealEstateDetail = () => {
     );
   }
 
+  const normalizedImageUrls = (((listing as any).image_urls) || []).map((u: string) => u.replace(/^\/src\/assets\/listings\//, '/listings/'));
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -75,8 +77,8 @@ const RealEstateDetail = () => {
           <div className="space-y-4">
             <Carousel className="w-full">
               <CarouselContent>
-                {(listing as any).image_urls && (listing as any).image_urls.length > 0 ? (
-                  (listing as any).image_urls.map((imageUrl: string, index: number) => (
+                {normalizedImageUrls.length > 0 ? (
+                  normalizedImageUrls.map((imageUrl: string, index: number) => (
                     <CarouselItem key={index}>
                       <div className="relative h-[500px] rounded-lg overflow-hidden">
                         <img
@@ -95,7 +97,7 @@ const RealEstateDetail = () => {
                   </CarouselItem>
                 )}
               </CarouselContent>
-              {(listing as any).image_urls && (listing as any).image_urls.length > 1 && (
+              {normalizedImageUrls.length > 1 && (
                 <>
                   <CarouselPrevious />
                   <CarouselNext />
